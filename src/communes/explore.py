@@ -19,6 +19,7 @@ pp.savefig(firstPage)
 
 
 data = pd.read_csv('../../data/raw/Presid_2017_Communes_Tour_1.csv')
+df_bureaux = pd.read_table("../../data/raw/PR17_BVot_T1_FE (copy).txt", encoding = "ISO-8859-1", sep =';', decimal =',')
 
 alist = list()
 absten = list()
@@ -53,7 +54,7 @@ pp.savefig(fig2)
 fig3 = plt.figure(figsize=(14,10))
 plt.bar(range(100), absten)
 plt.title("Nombre d'abstentions dans les communes par pourcentage d'abstention")
-plt.ylabel("Nombre d'inscrtis")
+plt.ylabel("Nombre d'abstentions")
 plt.xlabel('% Abs/Ins')
 
 pp.savefig(fig3)
@@ -83,9 +84,44 @@ for i in range(100):
 fig4 = plt.figure(figsize=(14,10))
 plt.bar(range(100), absten)
 plt.title("Nombre d'abstentions dans les communes par pourcentage d'abstention en France Métropolitaine")
-plt.ylabel("Nombre d'inscrtis")
+plt.ylabel("Nombre d'abstenstions")
 plt.xlabel('% Abs/Ins')
 
 pp.savefig(fig4)
+
+
+bureaux_metro  = df_bureaux
+
+#print(df_bureaux['% Abs/Ins'][0] + df_bureaux['% Abs/Ins'][1])
+
+
+for word in word_list:
+    bureaux_metro = bureaux_metro[~bureaux_metro["Libellé du département"].str.contains(word)] #string does not contain
+
+
+
+alist = list()
+absten = list()
+bureaux = list()
+inscrits = list()
+for i in range(100):
+    larger = bureaux_metro['% Abs/Ins'] > i
+    smaller = bureaux_metro['% Abs/Ins'] <= i+1
+    alist.append(bureaux_metro[larger & smaller])
+    #print(alist[i]['Inscrits'].sum())
+    absten.append(alist[i]['Abstentions'].sum())
+    inscrits.append(alist[i]['Inscrits'].sum())
+    #print(len(alist[i]), " communes ", i, "% d'abstention pour ", inscrits[i], " inscrits")
+
+    bureaux.append(len(alist[i]))
+
+fig5 = plt.figure(figsize=(14,10))
+plt.bar(range(100), absten)
+plt.title("Nombre d'abstentions dans les bureaux de votes par pourcentage d'abstention en France Métropolitaine")
+plt.ylabel("Nombre d'abstentions")
+plt.xlabel('% Abs/Ins')
+
+pp.savefig(fig5)
+
 
 pp.close()
