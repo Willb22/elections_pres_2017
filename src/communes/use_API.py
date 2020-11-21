@@ -10,7 +10,7 @@ import time
 import datetime
 
 
-data = pd.read_csv('../../input_files/Presid_2017_Communes_Tour_1.csv')
+data = pd.read_csv('../../data/raw/Presid_2017_Communes_Tour_1.csv')
 #print(data.shape)
 
 

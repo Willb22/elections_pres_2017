@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import numpy as np
 import pandas as pd
 
@@ -20,7 +21,7 @@ firstPage.text(0.5,0.5,txt, transform=firstPage.transFigure, size=12, ha="center
 pp.savefig()
 
 
-data = pd.read_csv('../../input_files/Presid_2017_Communes_Tour_1.csv')
+data = pd.read_csv('../../data/raw/Presid_2017_Communes_Tour_1.csv')
 liste_communes = plt.figure()
 for i in range(1,15):
     comm = data[data['Code du département'] == str(i)]
@@ -28,7 +29,8 @@ for i in range(1,15):
     plt.title(comm['Libellé du département'].iloc[0])
     plt.xlabel('communes')
     plt.ylabel('% Abs/Ins')
-    pp.savefig(liste_communes)
+    
 
     #plt.show()
+pp.savefig(liste_communes)
 pp.close()

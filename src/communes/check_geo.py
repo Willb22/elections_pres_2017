@@ -12,7 +12,7 @@ from folium import plugins
 import folium.plugins as plugins
 
 
-coord = pd.read_csv("../../simu_files/coord_communes2020-05-05 17:32:28.546976.csv")
+coord = pd.read_csv("../../processed/coord_communes2020-05-05 17:32:28.546976.csv")
 coord = coord.dropna
 print(type(coord['latitude']))
 #print(type(coord['latitude'].iloc[6]))
@@ -34,11 +34,6 @@ map.fit_bounds([[lat_min, long_min], [lat_max, long_max]])
 incidents = folium.map.FeatureGroup()
 
 for lat, lng, in zip(coord['latitude'], coord['longitude']):
-    if lat == 'NaN':
-        continue
-
-    if lng == 'NaN':
-        continue
 
     folium.Marker(
         location=[lat, lng],
