@@ -13,25 +13,42 @@ import datetime
 from matplotlib.backends.backend_pdf import PdfPages
 
 ################### fichier pdf ##############################
-pp = PdfPages(' Graphiques communes.pdf')
+out = ' Graphiques communes'+str(datetime.datetime.now())+'.pdf'
+pp = PdfPages(out)
 firstPage = plt.figure(figsize=(11.69,8.27))
 firstPage.clf()
-txt = "Poucentage d'abstension par commune"
+txt = "Poucentage d'abstension"
 firstPage.text(0.5,0.5,txt, transform=firstPage.transFigure, size=12, ha="center")
 pp.savefig()
 
 
-data = pd.read_csv('../../data/raw/Presid_2017_Communes_Tour_1.csv')
-fig_list = list()
+communes = pd.read_csv('../../data/raw/Presid_2017_Communes_Tour_1.csv')
+bureaux = pd.read_table("../../data/raw/PR17_BVot_T1_FE (copy).txt", encoding = "ISO-8859-1", sep =';', decimal =',')
+
+#fig_list = list()
 #liste_communes = plt.figure()
-for i in range(1,14):
-    fig_list.append(plt.figure())
-    comm = data[data['Code du département'] == str(i)]
+for i in range(1, 16):
+    #fig_list.append(plt.figure())
+    print( ' i vaut '+ str(i))
+    plt.figure(figsize=(15,10))
+
+    plt.subplot(1,2,1)
+    comm = communes [communes ['Code du département'].apply(lambda x : str(x)) == str(i)]
     plt.bar(range(0, comm.shape[0]), comm['% Abs/Ins'].sort_values())
-    plt.title(comm['Libellé du département'].iloc[0])
+    plt.title('Par commune:    ' + comm['Libellé du département'].iloc[0])
     plt.xlabel('communes')
     plt.ylabel('% Abs/Ins')
-    pp.savefig(fig_list[i-1])
+
+    plt.subplot(1, 2, 2)
+
+
+    burr = bureaux[bureaux['Code du département'].apply(lambda x : str(x)) == str(i)]
+    plt.bar(range(0, burr.shape[0]), burr['% Abs/Ins'].sort_values())
+    plt.title('Par bureaux de vote:    ' + burr['Libellé du département'].iloc[0])
+    plt.xlabel('bureaux de vote')
+    plt.ylabel('% Abs/Ins')
+    #pp.savefig(fig_list[i-1])
+    pp.savefig()
     
 
     #plt.show()
