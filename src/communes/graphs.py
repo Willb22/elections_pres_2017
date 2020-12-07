@@ -27,7 +27,7 @@ bureaux = pd.read_table("../../data/raw/PR17_BVot_T1_FE (copy).txt", encoding = 
 
 #fig_list = list()
 #liste_communes = plt.figure()
-for i in range(1, 16):
+for i in communes ['Code du département'].unique():
     #fig_list.append(plt.figure())
     print( ' i vaut '+ str(i))
     plt.figure(figsize=(15,10))
@@ -49,6 +49,7 @@ for i in range(1, 16):
     plt.ylabel('% Abs/Ins')
     #pp.savefig(fig_list[i-1])
     pp.savefig()
+    plt.close()
     
 
     #plt.show()
