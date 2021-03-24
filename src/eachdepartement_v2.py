@@ -60,9 +60,9 @@ def add_body_page(pp, departement, figsize):
     plt.close()
 
 
-communes = pd.read_csv('./data/raw/Presid_2017_Communes_Tour_1.csv')
+communes = pd.read_csv('../data/raw/Presid_2017_Communes_Tour_1.csv')
 bureaux = pd.read_table(
-    "./data/raw/PR17_BVot_T1_FE (copy).txt",
+    "../data/raw/PR17_BVot_T1_FE (copy).txt",
     encoding="ISO-8859-1",
     sep=';',
     decimal=','

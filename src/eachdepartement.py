@@ -24,8 +24,8 @@ firstPage.text(0.5,0.5,txt, transform=firstPage.transFigure, size=12, ha="center
 pp.savefig()
 
 
-communes = pd.read_csv('../../data/raw/Presid_2017_Communes_Tour_1.csv')
-bureaux = pd.read_table("../../data/raw/PR17_BVot_T1_FE (copy).txt", encoding = "ISO-8859-1", sep =';', decimal =',')
+communes = pd.read_csv('../data/raw/Presid_2017_Communes_Tour_1.csv')
+bureaux = pd.read_table("../data/raw/PR17_BVot_T1_FE (copy).txt", encoding = "ISO-8859-1", sep =';', decimal =',')
 
 #fig_list = list()
 #liste_communes = plt.figure()
